@@ -4,7 +4,7 @@ function Die(props) {
   };
 
   return (
-    <div style={styles} className="die">
+    <div style={styles} className="die" onClick={props.holdDice}>
       {props.value}
     </div>
   );
