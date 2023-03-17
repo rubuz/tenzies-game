@@ -7,7 +7,11 @@ function App() {
   function allNewDice() {
     const newDice = [];
     for (let i = 0; i < 10; i++) {
-      newDice.push(Math.ceil(Math.random() * 6));
+      const number = Math.ceil(Math.random() * 6);
+      newDice.push({
+        value: number,
+        isHeld: false,
+      });
     }
     return newDice;
   }
@@ -16,13 +20,13 @@ function App() {
     setDice((prevDice) => allNewDice());
   }
 
-  const diceElements = dice.map((item) => <Die value={item} />);
+  const diceElements = dice.map((item) => <Die value={item.value} />);
 
   return (
     <main>
       <div className="dice-container">{diceElements}</div>
       <button className="roll-btn" onClick={rollDice}>
-        ROLL
+        Roll
       </button>
     </main>
   );
