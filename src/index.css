@@ -96,7 +96,6 @@ main {
 .die {
   display: grid;
   place-content: center;
-  background: #ffffff;
   width: 36px;
   aspect-ratio: 1/1;
   border-radius: 4px;
