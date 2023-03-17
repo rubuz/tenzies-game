@@ -72,6 +72,7 @@ body {
   display: grid;
   place-content: center;
   background: #0b2434;
+  font-family: "Inter", sans-serif;
 }
 
 main {
@@ -81,6 +82,37 @@ main {
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+}
+
+.dice-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: 18px;
+}
+
+.die {
+  display: grid;
+  place-content: center;
+  background: #ffffff;
+  width: 36px;
+  aspect-ratio: 1/1;
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: bold;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.roll-btn {
+  width: 92px;
+  height: 36px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  background: #5035ff;
+  border: none;
+  border-radius: 4px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
