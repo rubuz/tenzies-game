@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import Die from "./components/Die";
+import Confetti from "react-confetti";
 
 function App() {
   const [dice, setDice] = useState(allNewDice());
@@ -12,7 +13,6 @@ function App() {
     const allSameValue = dice.every((die) => die.value === firstValue);
     if (allHeld && allSameValue) {
       setTenzies(true);
-      console.log("You won!");
     }
   }, [dice]);
 
@@ -59,6 +59,7 @@ function App() {
 
   return (
     <main>
+      {tenzies && <Confetti />}
       <div className="text">
         <h1 className="title">Tenzies</h1>
         <p className="instructions">
@@ -69,7 +70,7 @@ function App() {
 
       <div className="dice-container">{diceElements}</div>
       <button className="roll-btn" onClick={rollDice}>
-        Roll
+        {tenzies ? "New Game" : "Roll"}
       </button>
     </main>
   );
