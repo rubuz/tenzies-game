@@ -6,6 +6,8 @@ import Confetti from "react-confetti";
 function App() {
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
+  const [rolls, setRolls] = useState(0);
+  const [time, setTime] = useState({ minutes: 0, seconds: 0 });
 
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
@@ -15,6 +17,28 @@ function App() {
       setTenzies(true);
     }
   }, [dice]);
+
+  useEffect(() => {
+    let intervalId;
+
+    if (!tenzies) {
+      intervalId = setInterval(() => {
+        if (time.seconds === 59) {
+          setTime((prevTime) => ({
+            minutes: prevTime.minutes + 1,
+            seconds: 0,
+          }));
+        } else {
+          setTime((prevTime) => ({
+            ...prevTime,
+            seconds: prevTime.seconds + 1,
+          }));
+        }
+      }, 1000);
+    }
+
+    return () => clearInterval(intervalId);
+  }, [time.seconds, tenzies]);
 
   function allNewDice() {
     const newDice = [];
@@ -47,9 +71,12 @@ function App() {
           return die.isHeld ? die : generateNewDie();
         })
       );
+      setRolls(rolls + 1);
     } else {
       setTenzies(false);
       setDice(allNewDice());
+      setRolls(0);
+      setTime({ minutes: 0, seconds: 0 });
     }
   }
 
@@ -72,7 +99,20 @@ function App() {
           current value between rolls.
         </p>
       </div>
-
+      <div className="scoreboard">
+        <p>
+          Roll count: <span>{rolls}</span>
+        </p>
+        <p className="timer">
+          Timer:
+          <span>
+            {" "}
+            {`${time.minutes.toString().padStart(2, "0")}:${time.seconds
+              .toString()
+              .padStart(2, "0")}`}
+          </span>
+        </p>
+      </div>
       <div className="dice-container">{diceElements}</div>
       <button className="roll-btn" onClick={rollDice}>
         {tenzies ? "New Game" : "Roll"}

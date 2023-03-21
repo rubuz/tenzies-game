@@ -95,26 +95,23 @@ main {
   font-size: 0.8rem;
 }
 
+.scoreboard {
+  font-size: 0.8rem;
+  padding-inline: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.scoreboard span {
+  font-weight: 600;
+}
+
 .dice-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: 1fr 1fr;
   gap: 18px;
-}
-
-.die {
-  display: grid;
-  place-content: center;
-  width: 36px;
-  aspect-ratio: 1/1;
-  border-radius: 4px;
-  font-size: 20px;
-  font-weight: bold;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
-.die:hover {
-  cursor: pointer;
 }
 
 .roll-btn {
