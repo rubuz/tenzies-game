@@ -6,6 +6,7 @@ import Confetti from "react-confetti";
 function App() {
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
+  const [rolls, setRolls] = useState(0);
 
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
@@ -47,9 +48,11 @@ function App() {
           return die.isHeld ? die : generateNewDie();
         })
       );
+      setRolls(rolls + 1);
     } else {
       setTenzies(false);
       setDice(allNewDice());
+      setRolls(0);
     }
   }
 
@@ -72,7 +75,12 @@ function App() {
           current value between rolls.
         </p>
       </div>
-
+      <div className="scoreboard">
+        <p>
+          Roll count: <span>{rolls}</span>
+        </p>
+        <p className="timer">Timer: </p>
+      </div>
       <div className="dice-container">{diceElements}</div>
       <button className="roll-btn" onClick={rollDice}>
         {tenzies ? "New Game" : "Roll"}

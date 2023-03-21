@@ -4,10 +4,9 @@ function Die(props) {
   const styles = {
     backgroundColor: props.isHeld ? "#59E391" : "white",
   };
-  const dieValue = props.value;
 
   const DieFace = () => {
-    switch (dieValue) {
+    switch (props.value) {
       case 1:
         return (
           <div
