@@ -103,6 +103,10 @@ main {
   justify-content: space-between;
 }
 
+.scoreboard span {
+  font-weight: 600;
+}
+
 .dice-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
