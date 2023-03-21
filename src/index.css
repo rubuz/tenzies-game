@@ -118,6 +118,7 @@ main {
 }
 
 .roll-btn {
+  cursor: pointer;
   width: 120px;
   height: 36px;
   text-align: center;
