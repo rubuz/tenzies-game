@@ -7,6 +7,9 @@ function App() {
   const [dice, setDice] = useState(allNewDice());
   const [tenzies, setTenzies] = useState(false);
   const [rolls, setRolls] = useState(0);
+  const [pbRolls, setPbRolls] = useState(
+    JSON.parse(localStorage.getItem("rolls")) || 0
+  );
   const [time, setTime] = useState({ minutes: 0, seconds: 0 });
 
   useEffect(() => {
@@ -17,6 +20,10 @@ function App() {
       setTenzies(true);
     }
   }, [dice]);
+
+  useEffect(() => {
+    localStorage.setItem("rolls", JSON.stringify(pbRolls));
+  }, [rolls]);
 
   useEffect(() => {
     let intervalId;
@@ -74,6 +81,9 @@ function App() {
       setRolls(rolls + 1);
     } else {
       setTenzies(false);
+      if (rolls < pbRolls || pbRolls === 0) {
+        setPbRolls(rolls);
+      }
       setDice(allNewDice());
       setRolls(0);
       setTime({ minutes: 0, seconds: 0 });
@@ -99,12 +109,27 @@ function App() {
           current value between rolls.
         </p>
       </div>
+      <div className="personal-best">
+        <h6>Personal Best</h6>
+        <p>
+          Roll count: <span>{pbRolls}</span>
+        </p>
+        <p className="timer">
+          Time:
+          {/* <span>
+            {" "}
+            {`${time.minutes.toString().padStart(2, "0")}:${time.seconds
+              .toString()
+              .padStart(2, "0")}`}
+          </span> */}
+        </p>
+      </div>
       <div className="scoreboard">
         <p>
           Roll count: <span>{rolls}</span>
         </p>
         <p className="timer">
-          Timer:
+          Time:
           <span>
             {" "}
             {`${time.minutes.toString().padStart(2, "0")}:${time.seconds
