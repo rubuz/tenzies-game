@@ -11,6 +11,9 @@ function App() {
     JSON.parse(localStorage.getItem("rolls")) || 0
   );
   const [time, setTime] = useState({ minutes: 0, seconds: 0 });
+  const [pbTime, setPbTime] = useState(
+    JSON.parse(localStorage.getItem("rolls")) || { minutes: 0, seconds: 0 }
+  );
 
   useEffect(() => {
     const allHeld = dice.every((die) => die.isHeld);
@@ -23,6 +26,10 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("rolls", JSON.stringify(pbRolls));
+  }, [rolls]);
+
+  useEffect(() => {
+    localStorage.setItem("time", JSON.stringify(pbTime));
   }, [rolls]);
 
   useEffect(() => {
@@ -86,6 +93,9 @@ function App() {
       }
       setDice(allNewDice());
       setRolls(0);
+      // if (time < pbTime || pbRolls === 0) {
+      //   setPbRolls(rolls);
+      // }
       setTime({ minutes: 0, seconds: 0 });
     }
   }
@@ -112,7 +122,7 @@ function App() {
       <div className="personal-best">
         <h6>Personal Best</h6>
         <p>
-          Roll count: <span>{pbRolls}</span>
+          Rolls: <span>{pbRolls}</span>
         </p>
         <p className="timer">
           Time:
@@ -126,7 +136,7 @@ function App() {
       </div>
       <div className="scoreboard">
         <p>
-          Roll count: <span>{rolls}</span>
+          Rolls: <span>{rolls}</span>
         </p>
         <p className="timer">
           Time:
