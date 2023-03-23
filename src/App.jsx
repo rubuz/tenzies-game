@@ -12,7 +12,11 @@ function App() {
   );
   const [time, setTime] = useState({ minutes: 0, seconds: 0 });
   const [pbTime, setPbTime] = useState(
-    JSON.parse(localStorage.getItem("rolls")) || { minutes: 0, seconds: 0 }
+    JSON.parse(localStorage.getItem("time")) || { minutes: 0, seconds: 0 }
+  );
+  const [sec, setSec] = useState(1);
+  const [pbSec, setPbSec] = useState(
+    JSON.parse(localStorage.getItem("seconds")) || 1
   );
 
   useEffect(() => {
@@ -30,13 +34,18 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem("time", JSON.stringify(pbTime));
-  }, [rolls]);
+  }, [time]);
+
+  useEffect(() => {
+    localStorage.setItem("seconds", JSON.stringify(pbSec));
+  }, [sec]);
 
   useEffect(() => {
     let intervalId;
-
     if (!tenzies) {
       intervalId = setInterval(() => {
+        setSec((prevSec) => prevSec + 1);
+        console.log(sec);
         if (time.seconds === 59) {
           setTime((prevTime) => ({
             minutes: prevTime.minutes + 1,
@@ -93,9 +102,11 @@ function App() {
       }
       setDice(allNewDice());
       setRolls(0);
-      // if (time < pbTime || pbRolls === 0) {
-      //   setPbRolls(rolls);
-      // }
+      if (sec < pbSec || pbSec === 1) {
+        setPbSec(sec);
+        setPbTime(time);
+      }
+      setSec(0);
       setTime({ minutes: 0, seconds: 0 });
     }
   }
@@ -126,12 +137,12 @@ function App() {
         </p>
         <p className="timer">
           Time:
-          {/* <span>
+          <span>
             {" "}
-            {`${time.minutes.toString().padStart(2, "0")}:${time.seconds
+            {`${pbTime.minutes.toString().padStart(2, "0")}:${pbTime.seconds
               .toString()
               .padStart(2, "0")}`}
-          </span> */}
+          </span>
         </p>
       </div>
       <div className="scoreboard">
